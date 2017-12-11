@@ -106,7 +106,9 @@ Object.keys(isUnitlessNumber).forEach(function(prop) {
 function mapStyle(style) {
   if (style && style.transform && typeof style.transform !== 'string') {
     // TODO(lmr): this doesn't attempt to use vendor prefixed styles
-    style.transform = style.transform.map(mapTransform).join(' ');
+    prefixes.forEach(function(prefix) {
+      style[prefixKey(prefix, 'transform')] = style.transform.map(mapTransform).join(' ');
+    })
   }
   return style;
 }
